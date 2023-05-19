@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    container_name: mongodb
+    env_file:
+      - ../environment/backend/mongo.env
+  backend:
+    build:
+      context: ./dockerfiles
+      dockerfile: backend.dockerfile
+    ports:
+      - "80:80"
+    container_name: lm-be
+    env_file:
+      - ../environment/backend/backend.dev.env
+    depends_on:
+      - mongodb
+  frontend:
+    build:
+      context: ./dockerfiles
+      dockerfile: frontend.dockerfile
+    ports:
+      - "3000:3000"
+    container_name: lm-fe
+    env_file:
+      -
+
+volumes:
+  data:

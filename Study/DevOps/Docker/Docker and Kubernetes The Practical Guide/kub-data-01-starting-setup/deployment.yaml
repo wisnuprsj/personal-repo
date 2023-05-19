@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-depl
+  labels:
+    group: stories-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: story
+  template:
+    metadata:
+      labels:
+        app: story
+    spec:
+      containers:
+        - name: story
+          image: wisnuprsj/kub-data:2
+          env:
+            - name: STORY_FOLDER
+              # value: story
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store-env
+                  key: folder
+          volumeMounts:
+            - mountPath: /app/story # /app is WORKDIR, define on Dockerfile
+              name: story-vol
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+      volumes:
+        - name: story-vol
+          # emptyDir: {} # will be a problem if we have multiple pods
+          # hostPath: # only create volume for a specific pod, if not use host persistent volume
+          #   path: /data/story
+          #   type: DirectoryOrCreate # Directory, DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: host-pvc

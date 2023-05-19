@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    container_name: mongodb
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: admin
+    #   MONGO_INITDB_ROOT_PASSWORD: admin
+    #  - MONGO_INITDB_ROOT_USERNAME=admin
+    env_file:
+      - ./env/mongo.env
+    # networks: # out of the box already set up by docker compose
+    #   - multi-container-net
+  backend:
+    build: ./backend
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    container_name: goals-backend
+    ports:
+      - "80:80"
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    container_name: goals-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./frontend/src:/app/src
+    stdin_open: true # interactive docker run
+    tty: true # terminal docker run
+    depends_on:
+      - backend
+
+# named volumes have to be defined
+volumes:
+  data:
+  logs:

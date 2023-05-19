@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks
+  template:
+    metadata:
+      labels:
+        app: tasks
+    spec:
+      containers:
+        - name: tasks
+          image: wisnuprsj/kub-networks-tasks:latest
+          env:
+            - name: TASKS_FOLDER
+              value: tasks
+            - name: AUTH_ADDRESS
+              value: "auth-svc.default"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "200m"

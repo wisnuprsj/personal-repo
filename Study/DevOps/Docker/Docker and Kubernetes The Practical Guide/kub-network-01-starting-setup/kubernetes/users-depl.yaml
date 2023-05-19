@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: wisnuprsj/kub-networks-users:latest
+          env:
+            - name: AUTH_ADDRESS
+              # value: localhost
+              value: "auth-svc.default" # default is the kubernetes defaul, you can also create other namespaces.
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "200m"

@@ -1,0 +1,15 @@
+version: "3"
+services:
+  auth:
+    build: ./auth-api
+    ports:
+      - "8000:3000"
+    environment:
+      TOKEN_KEY: "shouldbeverysecure"
+  users:
+    build: ./users-api
+    ports:
+      - "8080:3000"
+    environment:
+      MONGODB_CONNECTION_URI: "mongodb+srv://wisnuprsj:ArungJeram23!@general.oeu2s.mongodb.net/?retryWrites=true&w=majority"
+      AUTH_API_ADDRESSS: "auth:3000"

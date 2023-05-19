@@ -1,0 +1,3 @@
+<div>
+    Sidebar Component
+</div>

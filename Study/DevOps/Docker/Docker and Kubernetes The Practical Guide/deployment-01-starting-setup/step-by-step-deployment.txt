@@ -1,0 +1,18 @@
+Open an SSH client.
+
+Locate your private key file. The key used to launch this instance is example-1.pem
+
+Run this command, if necessary, to ensure your key is not publicly viewable.
+ chmod 400 example-1.pem
+
+Connect to your instance using its Public DNS:
+ ec2-54-169-169-42.ap-southeast-1.compute.amazonaws.com
+
+By Running this command 
+ssh -i "example-1.pem" ec2-user@ec2-54-169-169-42.ap-southeast-1.compute.amazonaws.com
+
+On Connected Virtual Machine, run this command to update all essential packages 
+sudo yum update -y
+
+Install docker on virtual machine 
+sudo amazon-linux-extras install docker
