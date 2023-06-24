@@ -16,11 +16,23 @@ function App() {
     setItems((prevState) => prevState.filter((item) => item.id !== id));
   };
 
+  const crossMarkItem = (id) => {
+    setItems((prevState) => {
+      return prevState.map((item) => {
+        return item.id === id ? { ...item, packed: true } : item;
+      });
+    });
+  };
+
   return (
     <div className="app">
       <Logo />
       <Form addNewItem={addNewItem} />
-      <PackingList items={items} removeItem={removeItem} />
+      <PackingList
+        items={items}
+        removeItem={removeItem}
+        crossItem={crossMarkItem}
+      />
       <Stats />
     </div>
   );
@@ -51,6 +63,7 @@ function Form(props) {
 
   const onFormSubmitted = (event) => {
     event.preventDefault();
+    if (!form.description) return;
     props.addNewItem({ id: new Date().toISOString(), ...form });
     setForm({
       description: "",
@@ -80,7 +93,7 @@ function Form(props) {
   );
 }
 
-function PackingList({ items, removeItem }) {
+function PackingList({ items, removeItem, crossItem }) {
   const remove = (id) => {
     removeItem(id);
   };
@@ -89,21 +102,46 @@ function PackingList({ items, removeItem }) {
     <div className="list">
       <ul>
         {items.map((item) => (
-          <PackingItem key={item.id} {...item} remove={remove} />
+          <PackingItem
+            key={item.id}
+            {...item}
+            remove={remove}
+            crossMarkItem={crossItem}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function PackingItem({ id, description, quantity, packed, remove }) {
+function PackingItem({
+  id,
+  description,
+  quantity,
+  packed,
+  remove,
+  crossMarkItem,
+}) {
   const removeItem = () => {
     remove(id);
   };
 
+  const onCheckItem = () => {
+    crossMarkItem(id);
+  };
+
   return (
     <li>
-      <span style={packed ? { textDecoration: "line-through" } : {}}>
+      <input
+        type="checkbox"
+        value={packed}
+        onChange={onCheckItem}
+        checked={packed}
+      />
+      <span
+        style={packed ? { textDecoration: "line-through" } : {}}
+        onClick={onCheckItem}
+      >
         {quantity} {description}
       </span>
       <button onClick={removeItem}>❌</button>
