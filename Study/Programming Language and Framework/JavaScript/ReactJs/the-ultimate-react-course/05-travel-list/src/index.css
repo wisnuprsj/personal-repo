@@ -91,6 +91,11 @@ input {
   margin: 0 0.8rem;
 }
 
+.actions button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .list ul {
   list-style: none;
   width: 80%;
