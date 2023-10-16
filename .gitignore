@@ -22,6 +22,10 @@ node_modules/
 /*.env
 *.env/
 
+.vagrant
+/.vagrant
+.vagrant/
+
 target
 /target
 target/
