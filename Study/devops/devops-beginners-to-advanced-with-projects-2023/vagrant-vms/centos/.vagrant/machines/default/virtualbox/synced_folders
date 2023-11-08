@@ -1,1 +1,1 @@
-{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"C:/vagrant-vms/centos","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"E:/Personal Development/study/devops/devops-beginners-to-advanced-with-projects-2023/vagrant-vms/centos","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
