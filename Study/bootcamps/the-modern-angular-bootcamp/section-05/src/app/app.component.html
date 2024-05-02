@@ -1,0 +1,95 @@
+<div class="container">
+  <h3>Payment Form</h3>
+  <div class="row">
+    <div class="form-group col">
+      <label for="name">Payee Name</label>
+      <input
+        class="form-control"
+        id="name"
+        type="text"
+        (input)="onNameChange($event)"
+      />
+    </div>
+    <div class="col">
+      <label for=""><b>Name</b></label>
+      <div>
+        {{ name | titlecase }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col">
+      <label for="payee">Payment Date</label>
+      <input
+        class="form-control"
+        id="payee"
+        type="date"
+        (input)="onDateChange($event)"
+      />
+    </div>
+    <div class="col">
+      <label for=""><b>Payment Date</b></label>
+      <div>
+        {{ date | date : "MMMM dd, YYYY" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col">
+      <label for="amount">Payment Amount</label>
+      <input
+        class="form-control"
+        id="amount"
+        type="number"
+        (input)="onAmountChange($event)"
+        min="0"
+      />
+    </div>
+    <div class="col">
+      <label for=""><b>Payment Amount</b></label>
+      <div>
+        {{ amount | currency : "JPY" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col">
+      <label for="height">Height</label>
+      <input
+        class="form-control"
+        id="height"
+        type="number"
+        (input)="onHeightChange($event)"
+        min="0"
+      />
+    </div>
+    <div class="col">
+      <label for=""><b>Height</b></label>
+      <div>
+        {{ height | number : "1.0-0" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col">
+      <label for="miles">Miles</label>
+      <input
+        class="form-control"
+        id="miles"
+        type="number"
+        (input)="onMilesChange($event)"
+        min="0"
+      />
+    </div>
+    <div class="col">
+      <label for=""><b>Kilometers</b></label>
+      <div *ngIf="(miles | convert : 'km') > 10">
+        {{ miles | convert : "km" | number : "1.0-5" }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<nav *ngIf="true">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="{ disabled: currentPage === 0 }">
+      <a href="#" class="page-link" (click)="changePage(currentPage - 1)"
+        >Prev</a
+      >
+    </li>
+
+    <ng-container *appTimes="images.length; let i = index">
+      <li
+        class="page-item"
+        [ngClass]="{ active: i === currentPage }"
+        *ngIf="checkWindowIndex(i)"
+      >
+        <a href="#" class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+      </li>
+    </ng-container>
+    <!-- <ng-container *ngFor="let image of images; let i = index">
+      <li
+        class="page-item"
+        [ngClass]="{ active: i === currentPage }"
+        *ngIf="checkWindowIndex(i)"
+      >
+        <a href="#" class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+      </li>
+    </ng-container> -->
+    <li
+      class="page-item"
+      [ngClass]="{ disabled: currentPage === images.length - 1 }"
+    >
+      <a href="#" class="page-link" (click)="changePage(currentPage + 1)"
+        >Next</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<div>
+  <h4>{{ images[currentPage].title }}</h4>
+  <img [src]="images[currentPage].url" />
+</div>
+
+<!-- <ul *appTimes="5">
+  <li>Hi There !</li>
+</ul> -->
+
+<!-- <div [ngSwitch]="currentPage">
+  <div *ngSwitchCase="0">Current Page is 0</div>
+  <div *ngSwitchDefault>Unknown current page!</div>
+</div> -->
