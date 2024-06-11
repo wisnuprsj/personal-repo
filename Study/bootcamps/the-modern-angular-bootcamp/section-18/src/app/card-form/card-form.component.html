@@ -1,0 +1,54 @@
+<div class="columns">
+  <div class="column">
+    <app-card
+      [name]="getControlField('name').value"
+      [cardNumber]="getControlField('cardNumber').value"
+      [expiration]="getControlField('expiration').value"
+    ></app-card>
+  </div>
+  <div class="column">
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+      <app-input label="Name" [control]="getControlField('name')"></app-input>
+      <app-input
+        label="Card Number"
+        [control]="getControlField('cardNumber')"
+      ></app-input>
+      <div class="columns">
+        <div class="column">
+          <app-input
+            label="Expiration (MM/YY)"
+            [control]="getControlField('expiration')"
+          ></app-input>
+        </div>
+        <div class="column">
+          <app-input
+            label="Security Code"
+            [control]="getControlField('securityCode')"
+          ></app-input>
+        </div>
+      </div>
+      <div class="buttons">
+        <button
+          [disabled]="cardForm.invalid"
+          class="button is-primary"
+          type="submit"
+        >
+          Submit
+        </button>
+        <button
+          class="button is-warning"
+          type="button"
+          (click)="onResetClick()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- 
+      <hr />
+      <div>Form Contents: {{ cardForm.value | json }}</div>
+      <div>Form is valid: {{ cardForm.valid }}</div>
+      <div>Errors around name: {{ cardForm.controls.name.errors | json }}</div> 
+    -->
+</div>
