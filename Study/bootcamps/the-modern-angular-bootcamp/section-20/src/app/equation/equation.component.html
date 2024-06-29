@@ -1,0 +1,13 @@
+<form [formGroup]="mathForm">
+  <div class="equation">{{ a }} + {{ b }} =</div>
+  <input
+    appAnswerHighlight
+    [ngClass]="{ highlight: (a + b) * 0.8 > answer }"
+    type="text"
+    formControlName="answer"
+  />
+</form>
+
+<div class="stats">
+  {{ secondsPerSolution | number : "1.1-3" }}
+</div>
